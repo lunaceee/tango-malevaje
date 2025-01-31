@@ -1,11 +1,103 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { fetchIssuedTickets } from "../api/tickets";
+import { loadQuery } from "../../sanity/lib/load-query";
+import { homePageQuery } from "../../sanity/lib/queries";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const issuedTickets = await fetchIssuedTickets();
+
+const numberOfTickets = issuedTickets.data.length;
+const TOTAL_SEATS = 20;
+
+interface HomePageQuery {
+  navigation: {
+    items: {
+      title: string;
+      linkType: string;
+      url?: string;
+      internalLink?: { slug: string };
+    }[];
+  };
+  highlightEvent: {
+    title: string;
+    eventDate: string;
+    location: string;
+    image?: string;
+    ticketUrl: string;
+  };
+  cardsSection: {
+    title: string;
+    cards: {
+      title: string;
+      description: string;
+      image?: string;
+      link: { slug: string };
+    }[];
+  };
+}
+
+const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
+  data: HomePageQuery;
+};
+
+console.log("HomePage", homePage);
+console.log("navigation", homePage.navigation);
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<h1>Welcome</h1>
+
+<!-- Navigation -->
+<nav>
+  <ul>
+    {
+      homePage.navigation.items.map((item) => (
+        <li key={item.title}>
+          {item.linkType === "external" ? (
+            <a href={item.url} target="_blank">
+              {item.title}
+            </a>
+          ) : (
+            <a href={item.slug === "home" ? "/" : item.slug}>{item.title}</a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<!-- Highlight Event -->
+<section>
+  <h2>{homePage.highlightEvent.title}</h2>
+  <p>
+    Date: {new Date(homePage.highlightEvent.eventDate).toLocaleDateString()}
+  </p>
+  <p>Location: {homePage.highlightEvent.location}</p>
+  {
+    homePage.highlightEvent.image && (
+      <img
+        src={homePage.highlightEvent.image}
+        alt={homePage.highlightEvent.title}
+      />
+    )
+  }
+
+  <a href={homePage.highlightEvent.ticketUrl} target="_blank"
+    >Make reservation</a
+  >
+</section>
+
+<!-- Cards Section -->
+<section>
+  <h2>{homePage.cardsSection.title}</h2>
+  <ul>
+    {
+      homePage.cardsSection.cards.map((card) => (
+        <li key={card.title}>
+          <h3>{card.title}</h3>
+          <p>{card.description}</p>
+          {card.image && <img src={card.image} alt={card.title} />}
+          <a href={`/${card.link.slug}`}>Learn More</a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

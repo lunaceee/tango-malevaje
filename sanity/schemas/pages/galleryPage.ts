@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity';
 
-export const galleryPageType = {
+export const galleryPageType = defineType({
     name: 'galleryPage',
     type: 'document',
     title: 'Gallery Page',
@@ -22,4 +22,4 @@ export const galleryPageType = {
             of: [{ type: 'card' }],
         }),
     ],
-};
+});
