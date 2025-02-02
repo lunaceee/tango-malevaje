@@ -5,6 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 import sanity from '@sanity/astro';
 import react from '@astrojs/react';
 
+import netlify from '@astrojs/netlify';
+
 dotenv.config();
 
 // https://astro.build/config
@@ -15,6 +17,7 @@ export default defineConfig({
     },
     plugins: [tailwindcss()],
   },
+
   integrations: [sanity(
     {
       projectId: 'u7rfiyeh',
@@ -24,4 +27,6 @@ export default defineConfig({
       studioBasePath: '/studio' // If you want to access the Studio on a route
     }
   ), react()],
+
+  adapter: netlify(),
 });
