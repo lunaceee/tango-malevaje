@@ -3,7 +3,7 @@ import type { SanityDocument, SlugSourceFn } from 'sanity';
 
 export const eventType = defineType({
     name: 'event',
-    type: 'document',
+    type: 'object',
     title: 'Event',
     fields: [
         defineField({
@@ -24,18 +24,33 @@ export const eventType = defineType({
             title: 'Slug (URL)',
             options: {
                 source: ((doc: SanityDocument) => {
-                    // First, cast `doc` to unknown, then assert the required structure
-                    const typedDoc = doc as unknown as { title: string; eventDate?: string };
-
-                    if (!typedDoc.title) return ''; // Ensure title exists
-                    if (!typedDoc.eventDate) {
-                        return typedDoc.title.toLowerCase().replace(/\s+/g, '-'); // Fallback if no date
+                    // Ensure we are referencing the correct event title, not a parent page title
+                    if (!('title' in doc)) {
+                        console.warn('Slug generation error: Title field missing in event document.');
+                        return null;
                     }
 
-                    const date = new Date(typedDoc.eventDate).toISOString().split('T')[0]; // YYYY-MM-DD
-                    return `${typedDoc.title.toLowerCase().replace(/\s+/g, '-')}-${date}`;
+                    const eventTitle = doc.title as string; // Explicitly getting event title
+                    const eventDate = 'eventDate' in doc ? doc.eventDate as string : null;
+
+                    if (!eventTitle) return null; // Ensure title exists
+
+                    const titleSlug = eventTitle.toLowerCase().replace(/\s+/g, '-'); // Convert title to slug format
+
+                    if (!eventDate) {
+                        return titleSlug; // Use title only if no date is provided
+                    }
+
+                    const date = new Date(eventDate);
+                    if (isNaN(date.getTime())) {
+                        return titleSlug; // Fallback to title if date is invalid
+                    }
+
+                    const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD format
+                    return `${titleSlug}-${formattedDate}`;
                 }) as SlugSourceFn,
                 maxLength: 96,
+                slugify: (input) => input.toLowerCase().replace(/[^\w-]+/g, '-'), // Ensures safe URL format
             },
             validation: (Rule) => Rule.required(),
         }),
@@ -48,6 +63,7 @@ export const eventType = defineType({
             name: 'location',
             type: 'string',
             title: 'Location',
+            initialValue: 'Verdi Club, 2424 Mariposa St, San Francisco, CA 94110'
         }),
         defineField({
             name: 'ticketUrl',

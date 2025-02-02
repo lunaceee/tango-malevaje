@@ -1,0 +1,28 @@
+---
+import { navigationQuery } from "../../sanity/lib/queries";
+import { loadQuery } from "../../sanity/lib/load-query";
+
+const { data: navigation } = await loadQuery<{
+  items: { title: string; linkType: string; url?: string; slug?: string }[];
+}>({ query: navigationQuery });
+---
+
+<nav
+  class="w-full flex justify-center p-8 bg-gray-800 text-white sticky top-0 z-10"
+>
+  <ul class="flex gap-20 p-4">
+    {
+      navigation.items.map((item) => (
+        <li key={item.title}>
+          {item.linkType === "external" ? (
+            <a href={item.url} target="_blank">
+              {item.title}
+            </a>
+          ) : (
+            <a href={item.slug === "home" ? "/" : item.slug}>{item.title}</a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>

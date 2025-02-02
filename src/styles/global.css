@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap');
+/* Ensure Tailwind Base Styles Load */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind theme;
+
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+@layer base {
+
+    h1 {
+        @apply text-4xl font-serif font-bold text-slate-800;
+    }
+
+    h2 {
+        @apply text-3xl font-serif font-bold text-slate-800;
+    }
+}
+
+@layer components {
+    section {
+        @apply max-w-320 mx-auto;
+    }
+}

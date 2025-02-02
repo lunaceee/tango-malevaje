@@ -11,15 +11,28 @@ export const galleryPageType = defineType({
             title: 'Title',
         }),
         defineField({
+            name: 'slug',
+            type: 'slug',
+            title: 'Slug',
+            options: {
+                maxLength: 96,
+                source: 'title',
+                slugify: (input) => input.toLowerCase(),
+            },
+        }),
+        defineField({
             name: 'description',
             type: 'text',
             title: 'Description',
         }),
         defineField({
-            name: 'cards',
+            name: 'pictures',
             type: 'array',
-            title: 'Cards',
-            of: [{ type: 'card' }],
+            title: 'Pictures',
+            of: [{ type: 'image' }],
+            options: {
+                layout: 'grid',
+            },
         }),
     ],
 });

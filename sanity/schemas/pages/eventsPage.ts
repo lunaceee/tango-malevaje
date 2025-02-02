@@ -18,9 +18,9 @@ export const eventsPageType = defineType({
         }),
         defineField({
             name: 'events',
-            type: 'reference',
-            to: [{ type: eventType.name }],
-            title: 'Events',
+            type: 'array',
+            title: 'Past events',
+            of: [{ type: 'image' }],
         }),
     ],
 });

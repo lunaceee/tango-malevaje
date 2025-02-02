@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import dotenv from 'dotenv';
-
+import tailwindcss from "@tailwindcss/vite";
 import sanity from '@sanity/astro';
 import react from '@astrojs/react';
 
@@ -13,6 +13,7 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['index2'], // Replace with the actual dependency causing issues
     },
+    plugins: [tailwindcss()],
   },
   integrations: [sanity(
     {

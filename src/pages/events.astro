@@ -1,36 +1,26 @@
 ---
 import { loadQuery } from "../../sanity/lib/load-query"; // Adjust path based on your project structure
-import { eventQuery } from "../../sanity/lib/queries"; // Adjust path based on your project structure
+import { eventsPageQuery } from "../../sanity/lib/queries"; // Adjust path based on your project structure
+import Navigation from "../components/Navigation.astro";
+import Layout from "../layouts/Layout.astro";
 
-const { data: events } = await loadQuery<(typeof eventQuery)[]>({
-  query: eventQuery,
+const { data } = await loadQuery<(typeof eventsPageQuery)[]>({
+  query: eventsPageQuery,
 });
-
-console.log("Events", events);
 ---
 
-<h1>Upcoming Events</h1>
-{
-  events.length > 0 ? (
-    <ul>
-      {events.map((event) => (
-        <li>
-          <h2>
-            <a href={`/events/${event.slug}`}>{event.title}</a>
-          </h2>
-          <p>Date: {new Date(event.eventDate).toLocaleDateString()}</p>
-          <p>Location: {event.location}</p>
-          {event.image && (
-            <img src={event.image} alt={event.title} width="200" />
-          )}
-          <br />
-          <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
-            Get Tickets
-          </a>
-        </li>
-      ))}
+<Layout>
+  <Navigation />
+  <section>
+    <h1 class="m-8 p-8 text-center">{data.title && data.title}</h1>
+    <ul class="flex flex-wrap gap-4">
+      {
+        data.events.map((event) => (
+          <li class="w-full lg:w-96">
+            {event.image && <img src={event.image} alt={event.title} />}
+          </li>
+        ))
+      }
     </ul>
-  ) : (
-    <p>No upcoming events.</p>
-  )
-}
+  </section>
+</Layout>

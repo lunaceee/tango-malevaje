@@ -8,6 +8,11 @@ export const homePageType = defineType({
     title: 'Home Page',
     fields: [
         defineField({
+            name: 'title',
+            type: 'string',
+            title: 'Title',
+        }),
+        defineField({
             name: 'navigation',
             type: 'reference',
             title: 'Navigation',
@@ -26,12 +31,6 @@ export const homePageType = defineType({
             type: 'object',
             title: 'Cards Section',
             fields: [
-                {
-                    name: 'title',
-                    type: 'string',
-                    title: 'Section Title',
-                    description: 'Title for the cards section, e.g., "Explore More".',
-                },
                 {
                     name: 'cards',
                     type: 'array',
@@ -60,7 +59,7 @@ export const homePageType = defineType({
                                 {
                                     name: 'link',
                                     type: 'reference',
-                                    to: [{ type: 'venuePage' }, { type: 'galleryPage' }], // Link to either Venue or Gallery pages
+                                    to: [{ type: 'galleryPage' }], // Link to either Venue or Gallery pages
                                     title: 'Link',
                                     description: 'Link to the related page.',
                                 },
