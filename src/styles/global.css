@@ -11,7 +11,6 @@ body {
 }
 
 @layer base {
-
     h1 {
         @apply text-4xl font-serif font-bold text-slate-800;
     }
@@ -23,6 +22,12 @@ body {
 
 @layer components {
     section {
-        @apply max-w-320 mx-auto;
+        @apply lg:max-w-320 mx-auto flex flex-col items-center justify-center;
+    }
+}
+
+@layer utilities {
+    body {
+        @apply w-full;
     }
 }

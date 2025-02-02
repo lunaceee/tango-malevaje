@@ -8,9 +8,9 @@ const { data: navigation } = await loadQuery<{
 ---
 
 <nav
-  class="w-full flex justify-center p-8 bg-gray-800 text-white sticky top-0 z-10"
+  class="w-auto flex lg:justify-center p-8 bg-gray-800 text-white sticky top-0 z-10"
 >
-  <ul class="flex gap-20 p-4">
+  <ul class="flex flex-wrap gap-20 p-4">
     {
       navigation.items.map((item) => (
         <li key={item.title}>
