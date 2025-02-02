@@ -19,7 +19,9 @@ const { data: navigation } = await loadQuery<{
               {item.title}
             </a>
           ) : (
-            <a href={item.slug === "home" ? "/" : item.slug}>{item.title}</a>
+            <a href={item.slug === "home" ? "/" : `/${item.slug}`}>
+              {item.title}
+            </a>
           )}
         </li>
       ))
