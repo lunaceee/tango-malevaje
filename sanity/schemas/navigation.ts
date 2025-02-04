@@ -3,7 +3,7 @@ import { navigationItemType } from './navigationItem';
 
 export const navigationType = defineType({
     name: 'navigation',
-    type: 'document',
+    type: 'object',
     title: 'Navigation',
     fields: [
         defineField({

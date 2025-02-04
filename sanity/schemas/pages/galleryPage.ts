@@ -29,7 +29,20 @@ export const galleryPageType = defineType({
             name: 'pictures',
             type: 'array',
             title: 'Pictures',
-            of: [{ type: 'image' }],
+            of: [
+                {
+                    type: 'image',
+                    options: { hotspot: true }, // Allows cropping and focus selection
+                    fields: [
+                        defineField({
+                            name: 'altText',
+                            type: 'string',
+                            title: 'Alternative Text',
+                            description: 'Describe the image for accessibility and SEO.',
+                        }),
+                    ],
+                },
+            ],
             options: {
                 layout: 'grid',
             },

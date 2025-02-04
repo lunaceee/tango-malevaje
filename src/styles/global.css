@@ -1,33 +1,43 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap');
-/* Ensure Tailwind Base Styles Load */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@tailwind theme;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
 
-body {
-    font-family: 'Quicksand', sans-serif;
-}
+
 
 @layer base {
+    body {
+        font-family: 'Quicksand', sans-serif;
+        @apply text-slate-800 bg-zinc-50 text-lg;
+    }
+}
+
+@layer utilities {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: 'Shippori Mincho', serif;
+    }
+
     h1 {
-        @apply text-4xl font-serif font-bold text-slate-800;
+        @apply text-4xl font-bold leading-20;
     }
 
     h2 {
-        @apply text-3xl font-serif font-bold text-slate-800;
+        @apply text-3xl font-bold leading-14;
+    }
+
+    h3 {
+        @apply text-2xl font-bold leading-10;
     }
 }
 
 @layer components {
     section {
-        @apply lg:max-w-320 mx-auto flex flex-col items-center justify-center;
-    }
-}
-
-@layer utilities {
-    body {
-        @apply w-full;
+        @apply flex flex-col mx-auto w-full;
     }
 }

@@ -1,0 +1,50 @@
+---
+import { loadQuery } from "../../sanity/lib/load-query";
+import { headerQuery } from "../../sanity/lib/queries";
+
+type HeaderQueryType = {
+  title: string;
+  logo: string;
+  navigation: {
+    title: string;
+    linkType: string;
+    url?: string;
+    slug?: string;
+  }[];
+};
+
+const { data: header } = await loadQuery<HeaderQueryType>({
+  query: headerQuery,
+});
+---
+
+<header class="px-4 bg-[#010201]">
+  <div class="container mx-auto flex items-center justify-between">
+    {
+      header.logo && (
+        <img src={header.logo.url} alt={header.title} class="w-24 h-24" />
+      )
+    }
+    {
+      header.navigation && (
+        <nav class="w-auto flex lg:justify-center py-8 bg-[#010201] text-white sticky top-0 z-10">
+          <ul class="flex flex-wrap gap-20 p-4">
+            {header.navigation.items.map((item) => (
+              <li key={item.title}>
+                {item.linkType === "external" ? (
+                  <a href={item.url} target="_blank">
+                    {item.title}
+                  </a>
+                ) : (
+                  <a href={item.slug === "home" ? "/" : `/${item.slug}`}>
+                    {item.title}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+  </div>
+</header>

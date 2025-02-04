@@ -1,0 +1,57 @@
+---
+import { loadQuery } from "../../sanity/lib/load-query";
+import { footerQuery } from "../../sanity/lib/queries";
+
+type FooterQuery = {
+  socialMedia: { url: string; iconUrl: string; platform: string }[];
+  copyright: string;
+  partners: { url: string; name: string }[];
+  contactSlug: string;
+};
+
+const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
+---
+
+<footer class="bg-gray-900 text-white py-6">
+  <div
+    class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between px-6 h-20"
+  >
+    <!-- Social Media Links -->
+    <div class="flex space-x-4">
+      {
+        footer.socialMedia.map((social) => (
+          <a href={social.url} target="_blank" rel="noopener noreferrer">
+            <img src={social.iconUrl} alt={social.platform} class="w-6 h-6" />
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Copyright -->
+    <p class="text-sm text-gray-400 mt-4 lg:mt-0">{footer.copyright}</p>
+
+    <!-- Partner Links -->
+    <div class="mt-4 lg:mt-0 flex space-x-4">
+      {
+        footer.partners.map((partner) => (
+          <a
+            href={partner.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-white"
+          >
+            {partner.name}
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Contact Us -->
+    <a
+      href={`/${footer.contactSlug}`}
+      class="text-blue-400 hover:text-blue-500 mt-4 lg:mt-0"
+    >
+      Contact Us
+    </a>
+  </div>
+</footer>

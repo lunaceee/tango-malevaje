@@ -2355,7 +2355,7 @@
   resolved "https://registry.yarnpkg.com/@sanity/icons/-/icons-3.5.7.tgz#de54fb2bce392e677dd49d8b587d62fd7c4b5263"
   integrity sha512-Gdqh1Cst/GL2RF23Ztx14hFEOBltK7PYMDHTi83TQ4Vq2/W0rhhMTVlaAopb4MgnUBwzISHRLD85SuvDMi9SuA==
 
-"@sanity/image-url@^1.0.2":
+"@sanity/image-url@^1.0.2", "@sanity/image-url@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@sanity/image-url/-/image-url-1.1.0.tgz#f26905ef5bdd27165b0f04d8571eb75dc7cdf50a"
   integrity sha512-JHumVRxzzaZAJyOimntdukA9TjjzsJiaiq/uUBdTknMLCNvtM6KQ5OCp6W5fIdY78uyFxtQjz+MPXwK8WBIxWg==
@@ -3367,6 +3367,14 @@ ast-types@^0.16.1:
   integrity sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==
   dependencies:
     tslib "^2.0.1"
+
+astro-portabletext@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/astro-portabletext/-/astro-portabletext-0.11.0.tgz#87697be62563aeba51224263dec24c4c5985d841"
+  integrity sha512-ftCwtR8hUV9/vug46xVFwI9aZTwXi6fREOGo11ogvt/UKDheZcMmiKxBSqh9ABRPVBJf6UkFmKTkbVawnu6gdA==
+  dependencies:
+    "@portabletext/toolkit" "^2.0.16"
+    "@portabletext/types" "^2.0.13"
 
 astro@^5.1.9:
   version "5.2.3"

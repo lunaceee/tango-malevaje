@@ -1,7 +1,6 @@
 ---
 import { loadQuery } from "../../sanity/lib/load-query"; // Adjust path based on your project structure
 import { eventsPageQuery } from "../../sanity/lib/queries"; // Adjust path based on your project structure
-import Navigation from "../components/Navigation.astro";
 import Layout from "../layouts/Layout.astro";
 
 const { data } = await loadQuery<(typeof eventsPageQuery)[]>({
@@ -10,7 +9,6 @@ const { data } = await loadQuery<(typeof eventsPageQuery)[]>({
 ---
 
 <Layout>
-  <Navigation />
   <section>
     <h1 class="m-8 p-8 text-center">{data.title && data.title}</h1>
     <ul class="flex flex-wrap gap-4">

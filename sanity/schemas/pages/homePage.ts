@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity';
 import { eventType } from '../event';
-import { navigationType } from '../navigation';
+import { galleryPageType } from './galleryPage';
+import { venuePageType } from './venuePage';
 
 export const homePageType = defineType({
     name: 'homePage',
@@ -12,12 +13,6 @@ export const homePageType = defineType({
             type: 'string',
             title: 'Title',
         }),
-        defineField({
-            name: 'navigation',
-            type: 'reference',
-            title: 'Navigation',
-            to: [{ type: navigationType.name }],
-        }),
         // Section 1: Highlight Event Section
         defineField({
             name: 'highlightEvent',
@@ -25,49 +20,19 @@ export const homePageType = defineType({
             title: 'Highlight Event Section',
             to: [{ type: eventType.name }],
         }),
-        // Section 2: Cards Section
+        // Section 2: Plan for your visit section
         defineField({
-            name: 'cardsSection',
-            type: 'object',
-            title: 'Cards Section',
-            fields: [
-                {
-                    name: 'cards',
-                    type: 'array',
-                    title: 'Cards',
-                    of: [
-                        {
-                            type: 'object',
-                            title: 'Card',
-                            fields: [
-                                {
-                                    name: 'title',
-                                    type: 'string',
-                                    title: 'Card Title',
-                                    validation: (Rule) => Rule.required().error('Card title is required.'),
-                                },
-                                {
-                                    name: 'description',
-                                    type: 'text',
-                                    title: 'Card Description',
-                                },
-                                {
-                                    name: 'image',
-                                    type: 'image',
-                                    title: 'Card Image',
-                                },
-                                {
-                                    name: 'link',
-                                    type: 'reference',
-                                    to: [{ type: 'galleryPage' }], // Link to either Venue or Gallery pages
-                                    title: 'Link',
-                                    description: 'Link to the related page.',
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ],
+            name: 'planForVisit',
+            type: 'reference',
+            title: 'Plan for your visit',
+            to: [{ type: venuePageType.name }],
+        }),
+        // Section 3: Gallery Section
+        defineField({
+            name: 'linkToGallery',
+            type: 'reference',
+            title: 'Link to Gallery',
+            to: [{ type: galleryPageType.name }],
         }),
     ],
 });

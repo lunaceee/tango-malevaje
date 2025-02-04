@@ -11,12 +11,12 @@ export const venuePageType = defineType({
             title: "Title",
         }),
         defineField({
-            name: "description",
-            type: "text",
-            title: "Description",
+            name: "editor",
+            type: "blockContent",
+            title: "Rich Text",
         }),
         defineField({
-            name: 'imageGallery',
+            name: 'images',
             type: 'array',
             of: [{ type: 'image' }],
             title: 'Image Gallery',

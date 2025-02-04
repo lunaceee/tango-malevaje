@@ -1,12 +1,32 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Navigation from "../components/Navigation.astro";
+import PortableText from "../components/PortableText.astro";
+import { loadQuery } from "../../sanity/lib/load-query";
+import { venuePageQuery } from "../../sanity/lib/queries";
+
+const { data: venue } = await loadQuery<typeof venuePageQuery>({
+  query: venuePageQuery,
+});
 ---
 
 <Layout>
-  <Navigation />
-  <section>
-    <h1 class="m-8 p-8 text-center">Venue</h1>
-    <p class="m-8 p-8 text-center">Venue details...</p>
+  <section class="container mx-auto">
+    <div class="p-8">
+      <h1 class="m-8 p-8 text-center">{venue.title}</h1>
+      <PortableText portableText={venue.editor} />
+      <ul class="flex flex-wrap gap-8 justify-center my-20">
+        {
+          venue.images.map((item) => (
+            <li class="w-full lg:w-96 rounded-lg overflow-hidden shadow-lg">
+              <img
+                src={item.image}
+                alt={item}
+                class="w-full h-full object-fill"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </section>
 </Layout>
