@@ -18,7 +18,12 @@ const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
     <!-- Copyright -->
     <div class="flex flex-col gap-4">
       <p>{footer.copyright}</p>
-      <p>Made in SF with 💜</p>
+      <p>
+        Made in SF with 💜 by <a
+          href="https://github.com/lunaceee"
+          target="_blank"><i>lunaceee</i></a
+        >
+      </p>
     </div>
 
     <!-- Partner Links -->
