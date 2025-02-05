@@ -74,14 +74,5 @@ export const footerType = defineType({
                 },
             ],
         }),
-
-        // Contact Us Link
-        defineField({
-            name: 'contactUs',
-            type: 'reference',
-            title: 'Contact Us Page',
-            description: 'Link to the contact page',
-            to: [{ type: 'contactPage' }], // Ensure you have a `contactPage` schema
-        }),
     ],
 });

@@ -1,5 +1,4 @@
 import { defineType, defineField } from "sanity";
-import { eventType } from "../event";
 
 export const eventsPageType = defineType({
     name: "eventsPage",

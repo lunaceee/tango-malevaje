@@ -19,7 +19,7 @@ export const navigationItemType = defineType({
         defineField({
             name: 'internalLink',
             type: 'reference',
-            to: [{ type: 'homePage' }, { type: 'eventsPage' }, { type: 'venuePage' }, { type: 'contactPage' }, { type: 'galleryPage' }],
+            to: [{ type: 'homePage' }, { type: 'eventsPage' }, { type: 'venuePage' }, { type: 'galleryPage' }],
             title: 'Internal Page',
             hidden: ({ parent }) => parent?.linkType !== 'internal',
         }),

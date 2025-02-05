@@ -1,17 +1,47 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { loadQuery } from "../../sanity/lib/load-query";
+import { galleryPageQuery } from "../../sanity/lib/queries";
+
+interface GalleryPage {
+  _id: string; // Sanity Document ID
+  _type: "galleryPage"; // Document type
+  title: string;
+  slug: {
+    current: string; // Slug value
+  };
+  description: string;
+  pictures: {
+    _type: "image";
+    image: {
+      altText: string;
+      url?: string; // Image URL (fetched from Sanity)
+    };
+  }[];
+}
+
+const { data: gallery } = await loadQuery<GalleryPage>({
+  query: galleryPageQuery,
+});
 ---
 
 <Layout>
-  <section>
+  <section class="p-10 lg:px-40 lg:pb-40">
     <h1 class="m-8 p-8 text-center">Gallery</h1>
-    <ul class="flex flex-wrap gap-4">
-      <li class="w-full lg:w-96">
-        <img
-          src="https://source.unsplash.com/random/800x600"
-          alt="Random image"
-        />
-      </li>
-    </ul>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {
+        gallery.pictures.map((item, index) => (
+          <div
+            class={`rounded-lg overflow-hidden ${index === 0 ? "col-span-2 row-span-2" : ""} ${index === 3 ? "col-span-1" : ""}`}
+          >
+            <img
+              src={item.image}
+              alt={item.altText || "Gallery Image"}
+              class="w-full h-auto rounded-lg shadow-md"
+            />
+          </div>
+        ))
+      }
+    </div>
   </section>
 </Layout>

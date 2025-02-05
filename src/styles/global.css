@@ -41,3 +41,22 @@
         @apply flex flex-col mx-auto w-full;
     }
 }
+
+@keyframes glowing {
+    0% {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: oklch(.702 .183 293.541);
+    }
+
+    /* Blue glow */
+    100% {
+        border-color: transparent;
+    }
+}
+
+.animate-glow {
+    animation: glowing 2s infinite;
+}

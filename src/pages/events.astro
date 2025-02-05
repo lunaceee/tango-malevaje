@@ -9,9 +9,9 @@ const { data } = await loadQuery<(typeof eventsPageQuery)[]>({
 ---
 
 <Layout>
-  <section>
+  <section class="h-screen">
     <h1 class="m-8 p-8 text-center">{data.title && data.title}</h1>
-    <ul class="flex flex-wrap gap-4">
+    <ul class="flex flex-wrap gap-4 justify-center">
       {
         data.events.map((event) => (
           <li class="w-full lg:w-96">

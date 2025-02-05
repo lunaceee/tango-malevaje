@@ -1,6 +1,5 @@
 import { cardType } from "./card";
 import { galleryPageType } from "./pages/galleryPage";
-import { contactPageType } from "./pages/contactPage";
 import { venuePageType } from "./pages/venuePage";
 import { homePageType } from "./pages/homePage";
 import { navigationType } from "./navigation";
@@ -16,7 +15,6 @@ export const schemaTypes = [
     navigationType,
     navigationItemType,
     galleryPageType,
-    contactPageType,
     venuePageType,
     homePageType,
     eventsPageType,

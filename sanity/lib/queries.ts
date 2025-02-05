@@ -33,6 +33,8 @@ export const homePageQuery = `*[_type == "homePage"][0] {
   planForVisit->{
     title,
     editor,
+    "slug": slug.current,
+    description,
     images[] {
       "image": asset->url
     }
@@ -60,6 +62,7 @@ export const eventQuery = `*[_type == "event"] | order(eventDate asc) {
 
 export const galleryPageQuery = `*[_type == "galleryPage"][0] {
   title,
+  "slug": slug.current,
   description,
   pictures[] {
     "image": asset->url
@@ -69,17 +72,11 @@ export const galleryPageQuery = `*[_type == "galleryPage"][0] {
 export const venuePageQuery = `*[_type == "venuePage"][0] {
   title,
   editor,
+  "slug": slug.current,
   images[] {
     "image": asset->url
   }
 }`;
-
-export const contactPageQuery = `* [_type == "contactPage"][0] {
-    title,
-    description,
-    email,
-    phone
-  }`;
 
 export const eventsPageQuery = `* [_type == "eventsPage"][0] {
   title,
@@ -100,5 +97,4 @@ export const footerQuery = `*[_type == "footer"][0] {
     name,
     url
   },
-  "contactSlug": contactUs->slug.current
 }`;
