@@ -1,6 +1,7 @@
 export const headerQuery = `*[_type == "header"][0] {
   logo {
-    "url": asset->url
+    "url": asset->url,
+    altText
   },
   navigation->{
     title,

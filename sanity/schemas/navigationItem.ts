@@ -15,6 +15,7 @@ export const navigationItemType = defineType({
             name: 'slug',
             type: 'slug',
             title: 'Slug',
+            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: 'internalLink',

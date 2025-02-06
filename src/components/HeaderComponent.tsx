@@ -1,44 +1,28 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // Icons for open/close
+import NavigationType from "../components/Navigation.astro"
 
-
-// Define the type for each navigation item
-interface NavigationItem {
+interface NavigationItemType {
   title: string;
-  slug?: string;
-  url?: string;
   linkType: "internal" | "external";
+  slug: string;
+  url?: string;
 }
-
-// Define the type for the navigation object
-interface Navigation {
-  items: NavigationItem[];
-}
-
-// Define the type for the header data
-interface HeaderData {
+export interface HeaderProps {
   title: string;
   logo?: {
     url: string;
   };
-  navigation?: Navigation;
-}
-
-// Define the props for the Header component
-interface HeaderProps {
-  header: HeaderData;
+  navigation: typeof NavigationType
 }
 
 const HeaderComponent = ({ header }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = (event: React.MouseEvent) => {
+    setIsOpen(!isOpen);
+  }
   const closeMenu = () => setIsOpen(false);
-
-  console.log(header.navigation?.items)
-
-  console.log("isopen", isOpen)
-
 
   return (
     <header className="px-4 bg-[#010201] md:sticky top-0 z-10">
@@ -46,13 +30,13 @@ const HeaderComponent = ({ header }: HeaderProps) => {
         {/* Logo */}
         {header.logo && (
           <a href="/">
-            <img src={header.logo.url} alt={header.title} className="w-24 h-24 p-2" />
+            <img src={header.logo.url} alt={header.logo.altText} className="w-24 h-24 p-2" />
           </a>
         )}
 
         {/* Hamburger Button (Mobile) */}
         <button
-          className="lg:hidden p-2 text-white"
+          className="lg:hidden p-2 text-white w-12 h-12 flex items-center justify-center"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
@@ -61,7 +45,7 @@ const HeaderComponent = ({ header }: HeaderProps) => {
 
         {/* Slide-in Navigation Panel */}
         <nav
-          className={`fixed top-0 right-0 h-full w-64 bg-[#010201] text-white transform ${isOpen ? "translate-x-0" : "translate-x-full"
+          className={`fixed top-0 right-0 z-10 h-full w-64 bg-[#010201] text-white transform ${isOpen ? "translate-x-0" : "translate-x-full"
             } transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:w-auto`}
         >
           {/* Close Button (inside panel) */}
@@ -74,10 +58,10 @@ const HeaderComponent = ({ header }: HeaderProps) => {
           </button>
 
           <ul className="flex flex-col lg:flex-row gap-6 p-6 lg:p-4 lg:gap-20">
-            {header.navigation?.items.map((item) => (
+            {header.navigation?.items.map((item: NavigationItemType) => (
               <li key={item.title} onClick={closeMenu}>
                 {item.linkType === "external" ? (
-                  <a href={item.url} target="_blank" className="block">
+                  <a href={item.slug} target="_blank" className="block">
                     {item.title}
                   </a>
                 ) : (

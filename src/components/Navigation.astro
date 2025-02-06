@@ -2,9 +2,19 @@
 import { navigationQuery } from "../../sanity/lib/queries";
 import { loadQuery } from "../../sanity/lib/load-query";
 
-const { data: navigation } = await loadQuery<{
-  items: { title: string; linkType: string; url?: string; slug?: string }[];
-}>({ query: navigationQuery });
+export interface NavigationItemType {
+  title: string;
+  linkType: "internal" | "external";
+  slug: string;
+  url?: string;
+}
+export interface NavigationType {
+  items: NavigationItemType[];
+}
+
+const { data: navigation } = await loadQuery<NavigationType>({
+  query: navigationQuery,
+});
 ---
 
 <nav
@@ -12,10 +22,10 @@ const { data: navigation } = await loadQuery<{
 >
   <ul class="flex flex-wrap gap-20 p-4">
     {
-      navigation.items.map((item) => (
-        <li key={item.title}>
+      navigation.items.map((item, index) => (
+        <li key={index}>
           {item.linkType === "external" ? (
-            <a href={item.url} target="_blank">
+            <a href={item.slug} target="_blank">
               {item.title}
             </a>
           ) : (

@@ -2,21 +2,13 @@
 import { loadQuery } from "../../sanity/lib/load-query";
 import { headerQuery } from "../../sanity/lib/queries";
 import HeaderComponent from "./HeaderComponent";
-interface Header {
-  _id: string;
-  title: string;
-  logo?: {
-    url: string;
-  };
-  navigation: {
-    _ref: string;
-    _type: "reference";
-  };
-}
+import type HeaderProps from "./HeaderComponent";
 
-const { data: header } = await loadQuery<Header>({
+const { data: header } = await loadQuery<typeof HeaderProps>({
   query: headerQuery,
 });
+
+console.log("header", header);
 ---
 
-<HeaderComponent header={header} />
+<HeaderComponent header={header} client:load />

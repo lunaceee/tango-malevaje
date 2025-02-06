@@ -10,7 +10,17 @@ export const headerType = defineType({
             name: 'logo',
             type: 'image',
             title: 'Logo',
-            options: { hotspot: true },
+            options: {
+                hotspot: true,
+            },
+            fields: [
+                defineField({
+                    name: 'altText',
+                    type: 'string',
+                    title: 'Alternative Text',
+                    description: 'Describe the image for accessibility and SEO.',
+                })
+            ]
         }),
         defineField({
             name: 'navigation',
