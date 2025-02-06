@@ -1,16 +1,12 @@
 ---
 import { loadQuery } from "../../sanity/lib/load-query";
 import { headerQuery } from "../../sanity/lib/queries";
-import { Header } from "./Header";
+import HeaderComponent from "./HeaderComponent";
 interface Header {
   _id: string;
-  _type: "header";
+  title: string;
   logo?: {
-    _type: "image";
-    asset: {
-      _ref: string;
-      _type: "reference";
-    };
+    url: string;
   };
   navigation: {
     _ref: string;
@@ -23,4 +19,4 @@ const { data: header } = await loadQuery<Header>({
 });
 ---
 
-<Header header={header} />
+<HeaderComponent header={header} />

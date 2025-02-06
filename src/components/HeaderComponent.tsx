@@ -29,7 +29,7 @@ interface HeaderProps {
   header: HeaderData;
 }
 
-const Header = ({ header }: HeaderProps) => {
+const HeaderComponent = ({ header }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -102,4 +102,4 @@ const Header = ({ header }: HeaderProps) => {
   );
 }
 
-export { Header };
+export default HeaderComponent;

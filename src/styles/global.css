@@ -38,7 +38,7 @@
 
 @layer components {
     section {
-        @apply flex flex-col mx-auto w-full;
+        @apply mx-auto w-full;
     }
 }
 
