@@ -4,6 +4,11 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 
+:root {
+    --primary: #88D5BF;
+    --secondary: #5D6BF8;
+    --third: #e27fcb;
+}
 
 @layer base {
     body {
@@ -55,6 +60,21 @@
     100% {
         border-color: transparent;
     }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg) scale(10)
+    }
+
+    100% {
+        transform: rotate(-360deg) scale(10)
+    }
+
+}
+
+.animate-rotate {
+    animation: rotate 10s linear infinite;
 }
 
 .animate-glow {

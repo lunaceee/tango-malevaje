@@ -110,11 +110,10 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
   <!-- Plan for your visit Section -->
   <section class="bg-red-100">
     <DividerVenue />
-
     <div
       class="container p-10 xl:p-20 mx-auto xl:h-screen flex flex-col justify-center"
     >
-      <div class="flex flex-col items-center justify-center mb-8">
+      <div class="flex flex-col items-center pb-8">
         <h2>
           {homePage.planForVisit.title}
         </h2>
@@ -124,7 +123,7 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
       </div>
       <div>
         <article
-          class="mx-auto relative isolate xl:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+          class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
         >
           <img
             alt={homePage.planForVisit.images[0].altText}
@@ -136,17 +135,11 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
             class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-800 via-gray-900/40"
           >
           </div>
-          <div
-            class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"
-          >
-          </div>
-          <div
-            class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm/6 text-gray-300"
-          >
-          </div>
-          <h3 class="mt-3 text-lg/6 font-semibold text-white">
-            <a href={homePage.planForVisit.slug}>
-              <span class="absolute inset-0"></span>
+
+          <h3>
+            <a href={homePage.planForVisit.slug} class="group">
+              <span class="absolute
+              inset-0"></span>
             </a>
           </h3>
         </article>
@@ -160,7 +153,7 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
     <div
       class="container p-10 xl:p-20 mx-auto xl:h-screen flex flex-col justify-center"
     >
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center pb-8">
         <h2>
           {homePage.linkToGallery.title}
         </h2>
@@ -170,7 +163,7 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
       </div>
       <div>
         <article
-          class="mx-auto relative isolate xl:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+          class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
         >
           <img
             alt={homePage.linkToGallery.pictures[0].altText}
@@ -179,10 +172,6 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
           />
           <div
             class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"
-          >
-          </div>
-          <div
-            class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"
           >
           </div>
           <h3>
