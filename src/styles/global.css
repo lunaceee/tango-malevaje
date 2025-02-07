@@ -80,3 +80,19 @@
 .animate-glow {
     animation: glowing 2s infinite;
 }
+
+/* modal popup styles */
+.image-modal-popup {
+    animation: 500ms fadeIn;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

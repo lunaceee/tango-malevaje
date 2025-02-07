@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { loadQuery } from "../../sanity/lib/load-query";
 import { galleryPageQuery } from "../../sanity/lib/queries";
 
-interface GalleryPage {
+export interface ImageGalleryProps {
   title: string;
   slug: {
     current: string; // Slug value
@@ -12,35 +12,106 @@ interface GalleryPage {
   images: {
     image: {
       altText: string;
-      url?: string; // Image URL (fetched from Sanity)
+      image: string; // Image URL (fetched from Sanity)
     };
   }[];
 }
 
-const { data: gallery } = await loadQuery<GalleryPage>({
+const { data } = await loadQuery<ImageGalleryProps>({
   query: galleryPageQuery,
 });
 ---
 
 <Layout>
   <section>
-    <div class="container mx-auto p-10 lg:px-40 lg:pb-40">
-      <h1 class="p-4 lg:p-16">Gallery</h1>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {
-          gallery.images.map((item, index) => (
-            <div
-              class={`rounded-lg overflow-hidden ${index === 0 ? "col-span-2 row-span-2" : ""} ${index === 3 ? "col-span-1" : ""}`}
-            >
-              <img
-                src={item.image}
-                alt={item.altText || "Gallery Image"}
-                class="w-full h-auto rounded-lg shadow-md"
-              />
-            </div>
-          ))
-        }
+    {
+      data.images ? (
+        <div class="container mx-auto p-10 lg:px-40 lg:pb-40">
+          <h1 class="p-4 lg:p-16">Gallery</h1>
+          <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {data.images.map((item, index) => {
+              return (
+                <li key={index}>
+                  <img
+                    src={item.image}
+                    alt={item.altText || "Gallery Image"}
+                    class="w-full h-auto rounded-lg shadow-md cursor-pointer gallery-images"
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
+        <h1 class="h-screen">Coming Soon</h1>
+      )
+    }
+    <div
+      class="image-modal-popup fixed overflow-auto top-0 bottom-0 right-0 left-0 text-white hidden"
+    >
+      <div
+        class="flex flex-col items-center justify-center max-w-90 mx-auto mt-40 relative"
+      >
+        <img
+          src=""
+          alt="Image Modal"
+          class="w-96 max-h-[calc(100vh-150px)] cursor-pointer"
+        />
+        <div class="description">
+          <a href="#" target="_blank" rel="noopener noreferrer"> </a>
+        </div>
       </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lightboxImages =
+      document.querySelectorAll<HTMLImageElement>(".gallery-images");
+    const modalPopup =
+      document.querySelector<HTMLElement>(".image-modal-popup");
+    const body = document.body;
+
+    if (!modalPopup) return;
+
+    const getModalElement = (element: string) =>
+      modalPopup.querySelector<HTMLElement>(element);
+
+    const modalImg = getModalElement("img");
+    const linkElement = getModalElement("a");
+
+    // Open modal on image click
+    lightboxImages.forEach((img) => {
+      img.addEventListener("click", (e) => {
+        e.stopPropagation();
+        body.style.overflow = "hidden";
+        modalPopup.style.display = "block";
+
+        if (modalImg) modalImg.src = img.src;
+        if (linkElement) linkElement.href = img.dataset.url || "#";
+
+        modalImg?.classList.add("rounded-lg", "shadow-md");
+      });
+    });
+
+    // Close modal on outside click
+    modalPopup.addEventListener("click", (e) => {
+      if (e.target === modalPopup) {
+        closeModal();
+      }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modalPopup.style.display === "block") {
+        closeModal();
+      }
+    });
+
+    function closeModal() {
+      modalPopup.style.display = "none";
+      body.style.overflow = "auto";
+    }
+  });
+</script>
