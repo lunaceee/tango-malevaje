@@ -11,12 +11,14 @@ type FooterQuery = {
 const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
 ---
 
-<footer class="bg-[#5b21b6] text-zinc-100 py-12 text-sm -mt-2 flex">
+<footer class="bg-[#5b21b6]">
   <div
-    class="container mx-auto flex flex-col-reverse lg:flex-row items-start justify-between px-6"
+    class="container mx-auto flex flex-col-reverse px-8 lg:flex-row items-start justify-between lg:justify-center lg:gap-20 text-zinc-100 py-12 text-sm -mt-2"
   >
     <!-- Copyright -->
-    <div class="flex flex-col gap-4">
+    <div
+      class="flex flex-col gap-2 mt-8 lg:mt-0 text-xs mx-auto lg:mx-0 text-center lg:text-left"
+    >
       <p>{footer.copyright}</p>
       <p>
         Made in SF with 💜 by <a
@@ -26,46 +28,56 @@ const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
       </p>
     </div>
 
-    <!-- Partner Links -->
-    <div class="mt-4 lg:mt-0 flex space-x-4 flex-col">
-      <p class="mb-2">Partners</p>
-      {
-        footer.partners.map((partner) => (
-          <a
-            href={partner.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-violet-300 hover:text-white"
-          >
-            {partner.name}
-          </a>
-        ))
-      }
-    </div>
+    <!-- Parnter and Social -->
+    <div class="flex items-start gap-8 lg:gap-20">
+      <!-- Partner Links -->
+      <div class="flex flex-col">
+        <p class="mb-2">Partners</p>
+        {
+          footer.partners.map((partner) => (
+            <a
+              href={partner.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-violet-300 hover:text-white"
+            >
+              {partner.name}
+            </a>
+          ))
+        }
+      </div>
 
-    <!-- Contact Us -->
-    <!-- Social Media Links -->
-    <div class="flex flex-col mt-2 lg:mt-0">
-      <a href={`/contact`} class="text-violet-300 hover:text-white text-lg">
-        Contact us
-      </a>
-      <div class="flex flex-col gap-2 lg:mt-4">
-        <p>Stay connected</p>
-        <ul>
-          <li class="flex gap-2">
-            {
-              footer.socialMedia.map((social) => (
-                <a href={social.url} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src={social.iconUrl}
-                    alt={social.platform}
-                    class="w-6 h-6"
-                  />
-                </a>
-              ))
-            }
-          </li>
-        </ul>
+      <!-- Social Media Links -->
+      <div class="flex flex-col lg:mt-0">
+        <div class="flex flex-col gap-2">
+          <p>Stay connected</p>
+          <ul>
+            <li class="flex gap-2">
+              {
+                footer.socialMedia.map((social) => (
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={social.iconUrl}
+                      alt={social.platform}
+                      class="w-6 h-6"
+                    />
+                  </a>
+                ))
+              }
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Us -->
+      <div>
+        <a href={`/contact`} class="text-violet-300 hover:text-white text-lg">
+          Contact us
+        </a>
       </div>
     </div>
   </div>
