@@ -66,52 +66,60 @@ const { data } = await loadQuery<ImageGalleryProps>({
 </Layout>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const lightboxImages =
-      document.querySelectorAll<HTMLImageElement>(".gallery-images");
-    const modalPopup =
-      document.querySelector<HTMLElement>(".image-modal-popup");
-    const body = document.body;
+  // all images inside the image modal content class
+  const lightboxImages = document.querySelectorAll(".gallery-images");
 
-    if (!modalPopup) return;
+  // dynamically selects all elements inside modal popup
+  const modalElement = (element: string) =>
+    document.querySelector(`.image-modal-popup ${element}`);
 
-    const getModalElement = (element: string) =>
-      modalPopup.querySelector<HTMLElement>(element);
+  const body = document.querySelector("body");
 
-    const modalImg = getModalElement("img");
-    const linkElement = getModalElement("a");
-
-    // Open modal on image click
-    lightboxImages.forEach((img) => {
-      img.addEventListener("click", (e) => {
-        e.stopPropagation();
-        body.style.overflow = "hidden";
-        modalPopup.style.display = "block";
-
-        if (modalImg) modalImg.src = img.src;
-        if (linkElement) linkElement.href = img.dataset.url || "#";
-
-        modalImg?.classList.add("rounded-lg", "shadow-md");
-      });
-    });
-
-    // Close modal on outside click
-    modalPopup.addEventListener("click", (e) => {
-      if (e.target === modalPopup) {
-        closeModal();
-      }
-    });
-
-    // Close modal on Escape key
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && modalPopup.style.display === "block") {
-        closeModal();
-      }
-    });
-
-    function closeModal() {
-      modalPopup.style.display = "none";
+  // closes modal on clicking anywhere and adds overflow back
+  document.addEventListener("click", () => {
+    if (body) {
       body.style.overflow = "auto";
     }
+    if (modalPopup) {
+      (modalPopup as HTMLElement).style.display = "none";
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      const modal = document.querySelector(".image-modal-popup"); // Replace '.modal' with your modal's selector
+
+      if (modal && (modal as HTMLElement).style.display !== "none") {
+        (modal as HTMLElement).style.display = "none";
+      }
+    }
+  });
+
+  const modalPopup = document.querySelector(".image-modal-popup");
+
+  // loops over each modal content img and adds click event functionality
+  lightboxImages.forEach((img) => {
+    const data = (img as HTMLImageElement).dataset;
+    img.addEventListener("click", (e) => {
+      if (body) {
+        body.style.overflow = "hidden";
+      }
+      e.stopPropagation();
+      if (modalPopup) {
+        (modalPopup as HTMLElement).style.display = "block";
+      }
+      const linkElement = modalElement("a");
+      if (linkElement) {
+        (linkElement as HTMLAnchorElement).href = data.url || "#";
+      }
+      const modalImg = modalElement("img");
+      if (modalImg) {
+        (modalImg as HTMLImageElement).src = img.src;
+      }
+      const modalImgElement = modalElement("img");
+      if (modalImgElement) {
+        modalImgElement.classList.add("rounded-lg", "shadow-md");
+      }
+    });
   });
 </script>
