@@ -3,22 +3,32 @@ import { loadQuery } from "../../sanity/lib/load-query"; // Adjust path based on
 import { eventsPageQuery } from "../../sanity/lib/queries"; // Adjust path based on your project structure
 import Layout from "../layouts/Layout.astro";
 
-const { data } = await loadQuery<(typeof eventsPageQuery)[]>({
+type EventsProps = {
+  title: string;
+  events: {
+    image: string;
+    title: string;
+  }[];
+};
+
+const { data } = await loadQuery<EventsProps>({
   query: eventsPageQuery,
 });
 ---
 
 <Layout>
-  <section class="h-screen">
-    <h1 class="m-8 p-8 text-center">{data.title && data.title}</h1>
-    <ul class="flex flex-wrap gap-4 justify-center">
-      {
-        data.events.map((event) => (
-          <li class="w-full lg:w-96">
-            {event.image && <img src={event.image} alt={event.title} />}
-          </li>
-        ))
-      }
-    </ul>
+  <section class="lg:h-screen">
+    <div class="container px-8 mx-auto mb-20">
+      <h1 class="p-8 lg:m-8">{data.title && data.title}</h1>
+      <ul class="flex flex-wrap gap-8 justify-center">
+        {
+          data.events.map((event) => (
+            <li class="w-full lg:w-96">
+              {event.image && <img src={event.image} alt={event.title} />}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </section>
 </Layout>

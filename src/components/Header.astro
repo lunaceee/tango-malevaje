@@ -7,8 +7,6 @@ import type HeaderProps from "./HeaderComponent";
 const { data: header } = await loadQuery<typeof HeaderProps>({
   query: headerQuery,
 });
-
-console.log("header", header);
 ---
 
 <HeaderComponent header={header} client:load />

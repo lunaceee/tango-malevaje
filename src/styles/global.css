@@ -29,15 +29,15 @@
     }
 
     h1 {
-        @apply text-6xl font-bold leading-20;
+        @apply text-3xl lg:text-6xl font-bold leading-20 text-center;
     }
 
     h2 {
-        @apply text-4xl font-bold leading-14;
+        @apply text-2xl lg:text-4xl font-bold leading-14;
     }
 
     h3 {
-        @apply text-3xl font-bold leading-10;
+        @apply text-xl lg:text-3xl font-bold leading-10;
     }
 }
 
