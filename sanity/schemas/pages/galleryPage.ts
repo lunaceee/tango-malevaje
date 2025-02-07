@@ -26,7 +26,7 @@ export const galleryPageType = defineType({
             title: 'Description',
         }),
         defineField({
-            name: 'pictures',
+            name: 'images',
             type: 'array',
             title: 'Pictures',
             of: [

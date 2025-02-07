@@ -44,7 +44,7 @@ export const homePageQuery = `*[_type == "homePage"][0] {
     title,
     "slug": slug.current,
     description,
-    pictures[] {
+    images[] {
       "url": asset->url,
       "altText": asset->altText
     }
@@ -65,8 +65,9 @@ export const galleryPageQuery = `*[_type == "galleryPage"][0] {
   title,
   "slug": slug.current,
   description,
-  pictures[] {
-    "image": asset->url
+  images[] {
+    "image": asset->url,
+    "altText": asset->altText
   }
 }`;
 

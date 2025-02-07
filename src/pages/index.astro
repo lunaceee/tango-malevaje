@@ -36,7 +36,7 @@ interface HomePageQuery {
     image: string;
     slug: string;
     description: string;
-    pictures: {
+    images: {
       url: string;
       altText: string;
     }[];
@@ -166,8 +166,8 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
           class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
         >
           <img
-            alt={homePage.linkToGallery.pictures[0].altText}
-            src={homePage.linkToGallery.pictures[0].url}
+            alt={homePage.linkToGallery.images[0].altText}
+            src={homePage.linkToGallery.images[0].url}
             class="absolute inset-0 -z-10 size-full object-cover"
           />
           <div

@@ -4,15 +4,12 @@ import { loadQuery } from "../../sanity/lib/load-query";
 import { galleryPageQuery } from "../../sanity/lib/queries";
 
 interface GalleryPage {
-  _id: string; // Sanity Document ID
-  _type: "galleryPage"; // Document type
   title: string;
   slug: {
     current: string; // Slug value
   };
   description: string;
-  pictures: {
-    _type: "image";
+  images: {
     image: {
       altText: string;
       url?: string; // Image URL (fetched from Sanity)
@@ -31,7 +28,7 @@ const { data: gallery } = await loadQuery<GalleryPage>({
       <h1 class="p-4 lg:p-16">Gallery</h1>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         {
-          gallery.pictures.map((item, index) => (
+          gallery.images.map((item, index) => (
             <div
               class={`rounded-lg overflow-hidden ${index === 0 ? "col-span-2 row-span-2" : ""} ${index === 3 ? "col-span-1" : ""}`}
             >
