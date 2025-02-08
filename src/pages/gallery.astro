@@ -50,12 +50,12 @@ const { data } = await loadQuery<ImageGalleryProps>({
       class="image-modal-popup fixed overflow-auto top-0 bottom-0 right-0 left-0 text-white hidden"
     >
       <div
-        class="flex flex-col items-center justify-center max-w-90 mx-auto mt-40 relative"
+        class="flex flex-col items-center justify-center max-w-fit mx-auto px-10 mt-40 lg:my-20 relative"
       >
         <img
           src=""
           alt="Image Modal"
-          class="w-96 max-h-[calc(100vh-150px)] cursor-pointer"
+          class="w-128 max-h-[calc(100vh-150px)] lg:w-full cursor-pointer"
         />
         <div class="description">
           <a href="#" target="_blank" rel="noopener noreferrer"> </a>

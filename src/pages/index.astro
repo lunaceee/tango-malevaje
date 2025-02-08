@@ -121,28 +121,26 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
           {homePage.planForVisit.description}
         </p>
       </div>
-      <div>
-        <article
-          class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+      <div
+        class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+      >
+        <img
+          alt={homePage.planForVisit.images[0].altText}
+          src={homePage.planForVisit.images[0].image}
+          class="absolute inset-0 -z-10 size-full object-cover"
+        />
+
+        <div
+          class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-800 via-gray-900/40"
         >
-          <img
-            alt={homePage.planForVisit.images[0].altText}
-            src={homePage.planForVisit.images[0].image}
-            class="absolute inset-0 -z-10 size-full object-cover"
-          />
+        </div>
 
-          <div
-            class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-800 via-gray-900/40"
-          >
-          </div>
-
-          <h3>
-            <a href={homePage.planForVisit.slug} class="group">
-              <span class="absolute
+        <h3>
+          <a href={homePage.planForVisit.slug} class="group">
+            <span class="absolute
               inset-0"></span>
-            </a>
-          </h3>
-        </article>
+          </a>
+        </h3>
       </div>
     </div>
   </section>
@@ -161,25 +159,23 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
           {homePage.linkToGallery.description}
         </p>
       </div>
-      <div>
-        <article
-          class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+      <div
+        class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+      >
+        <img
+          alt={homePage.linkToGallery.images[0].altText}
+          src={homePage.linkToGallery.images[0].url}
+          class="absolute inset-0 -z-10 size-full object-cover"
+        />
+        <div
+          class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"
         >
-          <img
-            alt={homePage.linkToGallery.images[0].altText}
-            src={homePage.linkToGallery.images[0].url}
-            class="absolute inset-0 -z-10 size-full object-cover"
-          />
-          <div
-            class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"
-          >
-          </div>
-          <h3>
-            <a href={homePage.linkToGallery.slug} class="group">
-              <span class="absolute inset-0"></span>
-            </a>
-          </h3>
-        </article>
+        </div>
+        <h3>
+          <a href={homePage.linkToGallery.slug} class="group">
+            <span class="absolute inset-0"></span>
+          </a>
+        </h3>
       </div>
     </div>
   </section>
