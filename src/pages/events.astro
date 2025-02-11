@@ -22,11 +22,12 @@ const { data } = await loadQuery<EventsProps>({
       <h1 class="p-8 lg:m-8">{data.title && data.title}</h1>
       <ul class="flex flex-wrap gap-8 justify-center">
         {
-          data.events.map((event) => (
-            <li class="w-full lg:w-96">
-              {event.image && <img src={event.image} alt={event.title} />}
-            </li>
-          ))
+          data.events &&
+            data.events.map((event) => (
+              <li class="w-full lg:w-96">
+                {event.image && <img src={event.image} alt={event.title} />}
+              </li>
+            ))
         }
       </ul>
     </div>

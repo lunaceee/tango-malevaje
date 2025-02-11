@@ -27,18 +27,19 @@ const { data: venue } = await loadQuery<VenuePageProps>({
       </div>
       <ul class="flex flex-wrap justify-center gap-8 my-20">
         {
-          venue.images.map((item) => (
-            <li class="w-full lg:w-128 rounded-2xl overflow-hidden shadow-lg">
-              <div class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-                <img
-                  src={item.image}
-                  alt={item.altText}
-                  class="absolute inset-0 -z-10 size-full object-cover"
-                />
-                <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-800 via-gray-900/40" />
-              </div>
-            </li>
-          ))
+          venue.images &&
+            venue.images.map((item) => (
+              <li class="w-full lg:w-128 rounded-2xl overflow-hidden shadow-lg">
+                <div class="mx-auto relative isolate lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
+                  <img
+                    src={item.image}
+                    alt={item.altText}
+                    class="absolute inset-0 -z-10 size-full object-cover"
+                  />
+                  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-800 via-gray-900/40" />
+                </div>
+              </li>
+            ))
         }
       </ul>
     </div>
