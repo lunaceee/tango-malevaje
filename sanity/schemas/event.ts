@@ -3,13 +3,14 @@ import type { SanityDocument, SlugSourceFn } from 'sanity';
 
 export const eventType = defineType({
     name: 'event',
-    type: 'object',
+    type: 'document',
     title: 'Event',
     fields: [
         defineField({
             name: 'title',
             type: 'string',
             title: 'Event Title',
+            initialValue: 'Milonga Malevaje with ',
             validation: (Rule) => Rule.required(),
         }),
         defineField({
@@ -71,10 +72,21 @@ export const eventType = defineType({
             title: 'Ticket Purchase URL',
         }),
         defineField({
-            name: 'image',
+            name: 'djposter',
             type: 'image',
-            title: 'Event Image',
+            title: 'DJ poster',
             options: { hotspot: true },
+        }),
+        defineField({
+            name: 'classposter',
+            type: 'image',
+            title: 'Class poster',
+            options: { hotspot: true },
+        }),
+        defineField({
+            name: 'classpostercaption',
+            type: 'string',
+            title: "Class Poster Caption",
         }),
     ],
 });

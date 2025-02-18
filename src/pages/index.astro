@@ -7,6 +7,7 @@ import ReservationButton from "../components/ReservationButton.astro";
 import DividerVenue from "../assets/divider-venue.astro";
 import DividerGallery from "../assets/divider-gallery.astro";
 import DividerFooter from "../assets/divider-footer.astro";
+import { sortedEvents, eventsData } from "./events.astro";
 
 const issuedTickets = await fetchIssuedTickets();
 
@@ -18,8 +19,10 @@ interface HomePageQuery {
     title: string;
     eventDate: string;
     location: string;
-    image?: string;
     ticketUrl: string;
+    djposter: string;
+    classposter: string;
+    classpostercaption: string;
   };
   planForVisit: {
     title: string;
@@ -50,7 +53,7 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
 
 <Layout>
   <!-- Highlight Event -->
-  <section class="bg-[url(../assets/background-highlight.svg)]">
+  <section class="bg-[url(../assets/background-highlight-dj.svg)]">
     <div
       class="grid grid-cols-1 xl:grid-cols-2 p-10 lg:gap-10 justify-items-center mx-auto xl:h-screen"
     >
@@ -65,47 +68,137 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
         </div>
 
         {
-          homePage.highlightEvent.image && (
-            <img
-              src={homePage.highlightEvent.image}
-              alt={homePage.highlightEvent.title}
-              class="absolute inset-0 -z-10 size-full object-cover"
-            />
-          )
+          homePage.highlightEvent
+            ? homePage.highlightEvent.djposter && (
+                <img
+                  src={homePage.highlightEvent.djposter}
+                  alt={homePage.highlightEvent.title}
+                  class="absolute inset-0 -z-10 size-full object-cover"
+                />
+              )
+            : sortedEvents[0].djposter && (
+                <img
+                  src={sortedEvents[0].djposter}
+                  alt={sortedEvents[0].title}
+                  class="absolute inset-0 -z-10 size-full object-cover"
+                />
+              )
         }
       </div>
+
       <!-- Event Details -->
-      <div
-        class="flex flex-col justify-center md:max-w-96 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100"
-      >
-        <h2>
-          {homePage.highlightEvent.title}
-        </h2>
-        <p class="text-lg lg:text-xl mt-4">
-          Date: {
-            new Date(homePage.highlightEvent.eventDate).toLocaleDateString()
-          }
-        </p>
-        <p class="text-lg lg:text-xl mt-2">
-          Location: {homePage.highlightEvent.location}
-        </p>
-        {
-          homePage.highlightEvent.ticketUrl &&
-            (numberOfTickets < TOTAL_SEATS ? (
-              <ReservationButton
-                url={homePage.highlightEvent.ticketUrl}
-                size="lg"
-              />
-            ) : (
-              <p class="mt-4 px-4 py-2 bg-amber-200">
-                Table reservation is closed for this event. Tables are available
-                first come first serve upon arrival.
-              </p>
-            ))
-        }
-      </div>
+      {
+        homePage.highlightEvent ? (
+          <div class="flex flex-col justify-center md:max-w-96 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
+            <h2>{homePage.highlightEvent.title}</h2>
+            <p
+              class="text-lg lg
+            :text-xl mt-4"
+            >
+              Date:{" "}
+              {new Date(homePage.highlightEvent.eventDate).toLocaleDateString()}
+            </p>
+            <p class="text-lg lg:text-xl mt-2">
+              Location: {homePage.highlightEvent.location}
+            </p>
+            {homePage.highlightEvent.ticketUrl &&
+              (numberOfTickets < TOTAL_SEATS ? (
+                <ReservationButton
+                  url={homePage.highlightEvent.ticketUrl}
+                  size="lg"
+                />
+              ) : (
+                <p class="mt-4 px-4 py-2 bg-amber-200">
+                  Table reservation is closed for this event. Tables are
+                  available first come first serve upon arrival.
+                </p>
+              ))}
+          </div>
+        ) : (
+          <div class="flex flex-col justify-center md:max-w-96 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
+            <h2>{sortedEvents[0].title}</h2>
+            <p
+              class="text-lg lg
+            :text-xl mt-4"
+            >
+              Date: {new Date(sortedEvents[0].eventDate).toLocaleDateString()}
+            </p>
+            <p class="text-lg lg:text-xl mt-2">
+              Location: {sortedEvents[0].location}
+            </p>
+            {sortedEvents[0].ticketUrl &&
+              (numberOfTickets < TOTAL_SEATS ? (
+                <ReservationButton url={sortedEvents[0].ticketUrl} size="lg" />
+              ) : (
+                <p class="mt-4 px-4 py-2 bg-amber-200">
+                  Table reservation is closed for this event. Tables are
+                  available first come first serve upon arrival.
+                </p>
+              ))}
+          </div>
+        )
+      }
     </div>
   </section>
+
+  {
+    homePage.highlightEvent ? (
+      <section class="bg-[url(../assets/background-highlight-class.svg)]">
+        <div class="flex flex-col-reverse lg:flex-row justify-center items-center p-10 lg:p-20">
+          <div class="flex flex-col justify-center md:max-w-96 lg:mr-10 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
+            <h2>{homePage.highlightEvent.classpostercaption}</h2>
+            {homePage.highlightEvent.ticketUrl &&
+              (numberOfTickets < TOTAL_SEATS ? (
+                <ReservationButton
+                  url={homePage.highlightEvent.ticketUrl}
+                  size="lg"
+                />
+              ) : (
+                <p class="mt-4 px-4 py-2 bg-amber-200">
+                  Table reservation is closed for this event. Tables are
+                  available first come first serve upon arrival.
+                </p>
+              ))}
+          </div>
+          <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
+            {
+              <img
+                src={homePage.highlightEvent.classposter}
+                alt={homePage.highlightEvent.classpostercaption}
+                class="absolute inset-0 -z-10 size-full object-cover"
+              />
+            }
+          </div>
+        </div>
+      </section>
+    ) : (
+      <section class="bg-[url(../assets/background-highlight-class.svg)]">
+        <div class="flex flex-col-reverse lg:flex-row justify-center items-center p-10 lg:p-20">
+          <div class="flex flex-col justify-center md:max-w-96 lg:mr-10 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
+            <h2>{sortedEvents[0].classpostercaption}</h2>
+            {sortedEvents[0].ticketUrl &&
+              (numberOfTickets < TOTAL_SEATS ? (
+                <ReservationButton url={sortedEvents[0].ticketUrl} size="lg" />
+              ) : (
+                <p class="mt-4 px-4 py-2 bg-amber-200">
+                  Table reservation is closed for this event. Tables are
+                  available first come first serve upon arrival.
+                </p>
+              ))}
+          </div>
+          <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
+            {
+              <img
+                src={sortedEvents[0].classposter}
+                alt={sortedEvents[0].classpostercaption}
+                class="absolute inset-0 -z-10 size-full object-cover"
+              />
+            }
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <!-- Plan for your visit Section -->
   <section class="bg-red-100">

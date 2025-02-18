@@ -5,29 +5,48 @@ import Layout from "../layouts/Layout.astro";
 
 type EventsProps = {
   title: string;
+  description: string;
   events: {
-    image: string;
     title: string;
+    eventDate: string;
+    location: string;
+    ticketUrl: string;
+    slug: string;
+    djposter: string;
+    classposter: string;
+    classpostercaption: string;
   }[];
 };
 
-const { data } = await loadQuery<EventsProps>({
+export const { data: eventsData } = await loadQuery<EventsProps>({
   query: eventsPageQuery,
+});
+
+export const sortedEvents = eventsData.events.sort((a, b) => {
+  return new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime();
 });
 ---
 
 <Layout>
-  <section class="lg:h-screen">
-    <div class="container px-8 mx-auto mb-20">
-      <h1 class="p-8 lg:m-8">{data.title && data.title}</h1>
+  <section>
+    <div class="container p-8 mx-auto mb-20 lg:min-h-screen">
+      <h1 class="p-8 lg:mt-8">{eventsData.title && eventsData.title}</h1>
+      <p class="pb-8 lg:mb-12 text-center">
+        {eventsData.description && eventsData.description}
+      </p>
+
       <ul class="flex flex-wrap gap-8 justify-center">
         {
-          data.events &&
-            data.events.map((event) => (
-              <li class="w-full lg:w-96">
-                {event.image && <img src={event.image} alt={event.title} />}
-              </li>
-            ))
+          sortedEvents &&
+            sortedEvents.map((event) => {
+              return (
+                event.djposter && (
+                  <li class="w-full lg:w-96">
+                    <img src={event.djposter} alt={event.title} />
+                  </li>
+                )
+              );
+            })
         }
       </ul>
     </div>

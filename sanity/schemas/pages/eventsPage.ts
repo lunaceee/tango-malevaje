@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { eventType } from "../event";
 
 export const eventsPageType = defineType({
     name: "eventsPage",
@@ -18,8 +19,8 @@ export const eventsPageType = defineType({
         defineField({
             name: 'events',
             type: 'array',
-            title: 'Past events',
-            of: [{ type: 'image' }],
+            title: 'Events',
+            of: [{ type: 'reference', to: [{ type: 'event' }] }],
         }),
     ],
 });

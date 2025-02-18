@@ -29,7 +29,9 @@ export const homePageQuery = `*[_type == "homePage"][0] {
     location,
     ticketUrl,
     "slug": slug.current,
-    "image": image.asset->url
+    'djposter': djposter.asset->url,
+    'classposter': classposter.asset->url,
+    'classpostercaption': classpostercaption
   },
   planForVisit->{
     title,
@@ -58,7 +60,9 @@ export const eventQuery = `*[_type == "event"] | order(eventDate asc) {
     location,
     ticketUrl,
     "slug": slug.current,
-    "image": image.asset->url
+    'djposter': djposter.asset->url,
+    'classposter': classposter.asset->url,
+    'classpostercaption': classpostercaption
 }`;
 
 export const galleryPageQuery = `*[_type == "galleryPage"][0] {
@@ -83,10 +87,17 @@ export const venuePageQuery = `*[_type == "venuePage"][0] {
 export const eventsPageQuery = `* [_type == "eventsPage"][0] {
   title,
     description,
-    events[] {
-    "image": asset -> url
-  }
-} `;
+    events[]->{
+      title,
+      eventDate,
+      location,
+      ticketUrl,
+      "slug": slug.current,
+      'djposter': djposter.asset->url,
+      'classposter': classposter.asset->url,
+      'classpostercaption': classpostercaption
+    }
+}`;
 
 export const footerQuery = `*[_type == "footer"][0] {
   socialMedia[] {
