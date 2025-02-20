@@ -160,15 +160,17 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
                 </p>
               ))}
           </div>
-          <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
-            {
-              <img
-                src={homePage.highlightEvent.classposter}
-                alt={homePage.highlightEvent.classpostercaption}
-                class="absolute inset-0 -z-10 size-full object-cover"
-              />
-            }
-          </div>
+          {homePage.highlightEvent.classposter && (
+            <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
+              {
+                <img
+                  src={homePage.highlightEvent.classposter}
+                  alt={homePage.highlightEvent.classpostercaption}
+                  class="absolute inset-0 -z-10 size-full object-cover"
+                />
+              }
+            </div>
+          )}
         </div>
       </section>
     ) : (
@@ -186,15 +188,17 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
                 </p>
               ))}
           </div>
-          <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
-            {
-              <img
-                src={sortedEvents[0].classposter}
-                alt={sortedEvents[0].classpostercaption}
-                class="absolute inset-0 -z-10 size-full object-cover"
-              />
-            }
-          </div>
+          {sortedEvents[0].classposter && (
+            <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
+              {
+                <img
+                  src={sortedEvents[0].classposter}
+                  alt={sortedEvents[0].classpostercaption}
+                  class="absolute inset-0 -z-10 size-full object-cover"
+                />
+              }
+            </div>
+          )}
         </div>
       </section>
     )

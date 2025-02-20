@@ -11,7 +11,7 @@ type FooterQuery = {
 const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
 ---
 
-<footer class="bg-fuchsia-950">
+<footer class="bg-rose-950">
   <div
     class="container mx-auto flex flex-col-reverse px-8 lg:flex-row items-start justify-between lg:justify-center lg:gap-20 text-zinc-100 py-12 text-sm -mt-2"
   >
@@ -39,7 +39,7 @@ const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
               href={partner.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-fuchsia-300 hover:text-white"
+              class="text-rose-300 hover:text-white"
             >
               {partner.name}
             </a>
@@ -63,7 +63,7 @@ const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
                     <img
                       src={social.iconUrl}
                       alt={social.platform}
-                      class="w-6 h-6"
+                      class="w-6 h-6 "
                     />
                   </a>
                 ))
@@ -75,7 +75,7 @@ const { data: footer } = await loadQuery<FooterQuery>({ query: footerQuery });
 
       <!-- Contact Us -->
       <div>
-        <a href={`/contact`} class="text-fuchsia-300 hover:text-white text-lg">
+        <a href={`/contact`} class="text-rose-300 hover:text-white text-lg">
           Contact us
         </a>
       </div>
