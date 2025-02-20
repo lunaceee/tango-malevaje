@@ -28,13 +28,14 @@ export const sortedEvents = eventsData.events.sort((a, b) => {
 ---
 
 <Layout>
-  <section>
-    <div class="container p-8 mx-auto mb-20 lg:min-h-screen">
-      <h1 class="p-8 lg:mt-8">{eventsData.title && eventsData.title}</h1>
-      <p class="pb-8 lg:mb-12 text-center">
-        {eventsData.description && eventsData.description}
-      </p>
-
+  <section class="bg-[url(../assets/background-main.svg)] bg-slate-700">
+    <div class="container py-8 mx-auto pb-20 lg:min-h-screen">
+      <div class="bg-zinc-200/50 p-4 m-4 lg:m-8 rounded-xl shadow-2xl">
+        <h1 class="p-4 lg:p-8">{eventsData.title && eventsData.title}</h1>
+        <p class="mb-4 lg:mb-8 text-center">
+          {eventsData.description && eventsData.description}
+        </p>
+      </div>
       <ul class="flex flex-wrap gap-8 justify-center">
         {
           sortedEvents &&

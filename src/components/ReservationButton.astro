@@ -1,5 +1,13 @@
 ---
-const { url = "#", variant = "primary", size = "md" } = Astro.props;
+const {
+  url = "#",
+  variant = "primary",
+  size = "md",
+} = Astro.props as {
+  url?: string;
+  variant?: string;
+  size?: "sm" | "md" | "lg";
+};
 
 const sizes = {
   sm: "px-3 py-1 text-sm",
@@ -12,7 +20,7 @@ const sizes = {
   href={url}
   target="_blank"
   rel="noopener noreferrer"
-  class={`bg-violet-800 hover:bg-gradient-to-l hover:from-emerald-600 hover:to-violet-600 text-white mt-4 inline-block rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50 text-center ${sizes[size] || sizes.md}`}
+  class={`bg-fuchsia-900 hover:bg-gradient-to-l hover:from-emerald-600 hover:to-fushcia-700 text-white mt-4 inline-block rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50 text-center ${sizes[size] || sizes.md}`}
 >
   <slot>Reserve a Table <span aria-hidden="true">&rarr;</span></slot>
 </a>

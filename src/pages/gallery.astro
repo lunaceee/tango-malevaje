@@ -10,10 +10,8 @@ export interface ImageGalleryProps {
   };
   description: string;
   images: {
-    image: {
-      altText: string;
-      image: string; // Image URL (fetched from Sanity)
-    };
+    altText: string;
+    image: string; // Image URL (fetched from Sanity)
   }[];
 }
 
@@ -23,11 +21,16 @@ const { data } = await loadQuery<ImageGalleryProps>({
 ---
 
 <Layout>
-  <section>
+  <section class="bg-[url(../assets/background-main.svg)] bg-fuchsia-900">
     {
       data.images ? (
         <div class="container mx-auto p-10 lg:px-40 lg:pb-40">
-          <h1 class="p-4 lg:p-16">Gallery</h1>
+          <div class="bg-zinc-100/50 p-4 m-4 lg:m-8 lg:p-8 rounded-xl shadow-2xl">
+            <h1 class="p-2 m-4">Gallery</h1>
+            <p class="mb-4 lg:mb-8 text-center">
+              {data.description && data.description}
+            </p>
+          </div>
           <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
             {data.images.map((item, index) => {
               return (
