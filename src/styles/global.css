@@ -4,11 +4,6 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 
-:root {
-    --primary: #88D5BF;
-    --secondary: #5D6BF8;
-    --third: #e27fcb;
-}
 
 @layer base {
     body {
@@ -47,25 +42,6 @@
     }
 }
 
-
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg) scale(10)
-    }
-
-    100% {
-        transform: rotate(-360deg) scale(10)
-    }
-
-}
-
-.animate-rotate {
-    animation: rotate 10s linear infinite;
-}
-
-.animate-glow {
-    animation: glowing 2s infinite;
-}
 
 /* modal popup styles */
 .image-modal-popup {

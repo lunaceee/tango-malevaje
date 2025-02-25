@@ -4,10 +4,7 @@ import { loadQuery } from "../../sanity/lib/load-query";
 import { homePageQuery } from "../../sanity/lib/queries";
 import Layout from "../layouts/Layout.astro";
 import ReservationButton from "../components/ReservationButton.astro";
-import DividerVenue from "../assets/divider-venue.astro";
-import DividerGallery from "../assets/divider-gallery.astro";
 import DividerFooter from "../assets/divider-footer.astro";
-import { sortedEvents, eventsData } from "./events.astro";
 import DividerLine from "../assets/divider-line.astro";
 
 const issuedTickets = await fetchIssuedTickets();
@@ -87,9 +84,12 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
             homePage.highlightEvent.ticketUrl &&
               (numberOfTickets < TOTAL_SEATS ? (
                 <ReservationButton
-                  url={homePage.highlightEvent.ticketUrl}
+                  url={homePage.highlightEvent.ticketUrl || "google.com"}
+                  variant="outline"
                   size="lg"
-                />
+                >
+                  Make a Reservation
+                </ReservationButton>
               ) : (
                 <p class="mt-4 px-4 py-2 bg-amber-200">
                   Table reservation is closed for this event. Tables are
@@ -111,8 +111,11 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
                 (numberOfTickets < TOTAL_SEATS ? (
                   <ReservationButton
                     url={homePage.highlightEvent.ticketUrl}
+                    variant="outline"
                     size="lg"
-                  />
+                  >
+                    Make a Reservation
+                  </ReservationButton>
                 ) : (
                   <p class="mt-4 px-4 py-2 bg-amber-200">
                     Table reservation is closed for this event. Tables are
