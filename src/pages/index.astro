@@ -8,6 +8,7 @@ import DividerVenue from "../assets/divider-venue.astro";
 import DividerGallery from "../assets/divider-gallery.astro";
 import DividerFooter from "../assets/divider-footer.astro";
 import { sortedEvents, eventsData } from "./events.astro";
+import DividerLine from "../assets/divider-line.astro";
 
 const issuedTickets = await fetchIssuedTickets();
 
@@ -52,56 +53,38 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
 ---
 
 <Layout>
-  <!-- Highlight Event -->
-  <section class="bg-[url(../assets/background-highlight-dj.svg)]">
-    <div
-      class="grid grid-cols-1 xl:grid-cols-2 p-10 lg:gap-10 justify-items-center mx-auto xl:h-screen"
-    >
-      <!-- Image -->
+  <div class="bg-[url(../assets/background-index.svg)]">
+    <!-- Highlight Event -->
+    <section>
       <div
-        class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group"
+        class="grid grid-cols-1 xl:grid-cols-2 p-10 lg:gap-10 justify-items-center mx-auto xl:h-screen"
       >
-        <!-- Animated Frame -->
+        <!-- DJ Poster -->
         <div
-          class="absolute inset-0 z-10 rounded-2xl border-8 border-transparent animate-glow"
+          class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group"
         >
+          <img
+            src={homePage.highlightEvent.djposter}
+            alt={homePage.highlightEvent.title}
+            class="absolute inset-0 -z-10 size-full object-cover"
+          />
         </div>
 
-        {
-          homePage.highlightEvent
-            ? homePage.highlightEvent.djposter && (
-                <img
-                  src={homePage.highlightEvent.djposter}
-                  alt={homePage.highlightEvent.title}
-                  class="absolute inset-0 -z-10 size-full object-cover"
-                />
-              )
-            : sortedEvents[0].djposter && (
-                <img
-                  src={sortedEvents[0].djposter}
-                  alt={sortedEvents[0].title}
-                  class="absolute inset-0 -z-10 size-full object-cover"
-                />
-              )
-        }
-      </div>
-
-      <!-- Event Details -->
-      {
-        homePage.highlightEvent ? (
-          <div class="flex flex-col justify-center md:max-w-96 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
-            <h2>{homePage.highlightEvent.title}</h2>
-            <p
-              class="text-lg lg
-            :text-xl mt-4"
-            >
-              Date:{" "}
-              {new Date(homePage.highlightEvent.eventDate).toLocaleDateString()}
-            </p>
-            <p class="text-lg lg:text-xl mt-2">
-              Location: {homePage.highlightEvent.location}
-            </p>
-            {homePage.highlightEvent.ticketUrl &&
+        <!-- Event Details -->
+        <div
+          class="flex flex-col justify-center md:max-w-96 xl:place-self-start xl:self-center lg:max-w-128"
+        >
+          <h2>{homePage.highlightEvent.title}</h2>
+          <p class="text-lg lg
+            :text-xl mt-4">
+            Date:{" "}
+            {new Date(homePage.highlightEvent.eventDate).toLocaleDateString()}
+          </p>
+          <p class="text-lg lg:text-xl mt-2">
+            Location: {homePage.highlightEvent.location}
+          </p>
+          {
+            homePage.highlightEvent.ticketUrl &&
               (numberOfTickets < TOTAL_SEATS ? (
                 <ReservationButton
                   url={homePage.highlightEvent.ticketUrl}
@@ -112,176 +95,125 @@ const { data: homePage } = (await loadQuery({ query: homePageQuery })) as {
                   Table reservation is closed for this event. Tables are
                   available first come first serve upon arrival.
                 </p>
-              ))}
-          </div>
-        ) : (
-          <div class="flex flex-col justify-center md:max-w-96 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
-            <h2>{sortedEvents[0].title}</h2>
-            <p
-              class="text-lg lg
-            :text-xl mt-4"
-            >
-              Date: {new Date(sortedEvents[0].eventDate).toLocaleDateString()}
-            </p>
-            <p class="text-lg lg:text-xl mt-2">
-              Location: {sortedEvents[0].location}
-            </p>
-            {sortedEvents[0].ticketUrl &&
-              (numberOfTickets < TOTAL_SEATS ? (
-                <ReservationButton url={sortedEvents[0].ticketUrl} size="lg" />
-              ) : (
-                <p class="mt-4 px-4 py-2 bg-amber-200">
-                  Table reservation is closed for this event. Tables are
-                  available first come first serve upon arrival.
-                </p>
-              ))}
-          </div>
-        )
-      }
-    </div>
-  </section>
-
-  {
-    homePage.highlightEvent ? (
-      <section class="bg-[url(../assets/background-highlight-class.svg)]">
-        <div class="flex flex-col-reverse lg:flex-row justify-center items-center p-10 lg:p-20">
-          <div class="flex flex-col justify-center md:max-w-96 lg:mr-10 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
-            <h2>{homePage.highlightEvent.classpostercaption}</h2>
-            {homePage.highlightEvent.ticketUrl &&
-              (numberOfTickets < TOTAL_SEATS ? (
-                <ReservationButton
-                  url={homePage.highlightEvent.ticketUrl}
-                  size="lg"
-                />
-              ) : (
-                <p class="mt-4 px-4 py-2 bg-amber-200">
-                  Table reservation is closed for this event. Tables are
-                  available first come first serve upon arrival.
-                </p>
-              ))}
-          </div>
-          {homePage.highlightEvent.classposter && (
-            <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
-              {
-                <img
-                  src={homePage.highlightEvent.classposter}
-                  alt={homePage.highlightEvent.classpostercaption}
-                  class="absolute inset-0 -z-10 size-full object-cover"
-                />
-              }
-            </div>
-          )}
-        </div>
-      </section>
-    ) : (
-      <section class="bg-[url(../assets/background-highlight-class.svg)]">
-        <div class="flex flex-col-reverse lg:flex-row justify-center items-center p-10 lg:p-20">
-          <div class="flex flex-col justify-center md:max-w-96 lg:mr-10 xl:place-self-start xl:self-center lg:max-w-128 text-zinc-100">
-            <h2>{sortedEvents[0].classpostercaption}</h2>
-            {sortedEvents[0].ticketUrl &&
-              (numberOfTickets < TOTAL_SEATS ? (
-                <ReservationButton url={sortedEvents[0].ticketUrl} size="lg" />
-              ) : (
-                <p class="mt-4 px-4 py-2 bg-amber-200">
-                  Table reservation is closed for this event. Tables are
-                  available first come first serve upon arrival.
-                </p>
-              ))}
-          </div>
-          {sortedEvents[0].classposter && (
-            <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
-              {
-                <img
-                  src={sortedEvents[0].classposter}
-                  alt={sortedEvents[0].classpostercaption}
-                  class="absolute inset-0 -z-10 size-full object-cover"
-                />
-              }
-            </div>
-          )}
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Plan for your visit Section -->
-  <section class="bg-red-100">
-    <DividerVenue />
-    <div
-      class="container p-10 xl:p-20 mx-auto xl:h-screen flex flex-col justify-center"
-    >
-      <div class="flex flex-col items-center pb-8">
-        <h2>
-          {
-            (homePage.planForVisit.title && homePage.planForVisit.title) ||
-              "Plan For Your Visit"
+              ))
           }
-        </h2>
-        <p class="mt-2 text-lg/8">
-          {
-            (homePage.planForVisit.description &&
-              homePage.planForVisit.description) ||
-              "Find parking and public transit information prior to your visit"
-          }
-        </p>
+        </div>
       </div>
+    </section>
+    <!-- Class Poster -->
+    {
+      homePage.highlightEvent.classposter && (
+        <section>
+          <div class="flex flex-col-reverse lg:flex-row justify-center items-center p-10 lg:p-20">
+            <div class="flex flex-col justify-center md:max-w-96 lg:mr-10 xl:place-self-start xl:self-center lg:max-w-128 ">
+              <h2>{homePage.highlightEvent.classpostercaption}</h2>
+              {homePage.highlightEvent.ticketUrl &&
+                (numberOfTickets < TOTAL_SEATS ? (
+                  <ReservationButton
+                    url={homePage.highlightEvent.ticketUrl}
+                    size="lg"
+                  />
+                ) : (
+                  <p class="mt-4 px-4 py-2 bg-amber-200">
+                    Table reservation is closed for this event. Tables are
+                    available first come first serve upon arrival.
+                  </p>
+                ))}
+            </div>
+            {homePage.highlightEvent.classposter && (
+              <div class="h-80 w-80 md:h-96 md:w-96 lg:w-128 xl:place-self-end xl:self-center relative isolate overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80 lg:h-128 group">
+                {
+                  <img
+                    src={homePage.highlightEvent.classposter}
+                    alt={homePage.highlightEvent.classpostercaption}
+                    class="absolute inset-0 -z-10 size-full object-cover"
+                  />
+                }
+              </div>
+            )}
+          </div>
+        </section>
+      )
+    }
+    <!-- Divider -->
+    <div class="p-8 md:px-20 md:py-12 w-[80%] mx-auto"><DividerLine /></div>
+    <!-- Plan for your visit Section -->
+    <section>
       <div
-        class="mx-auto relative isolate w-80 lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+        class="container p-10 xl:p-20 mx-auto xl:h-screen flex flex-col justify-center"
       >
-        <img
-          alt={homePage.planForVisit.images[0].altText}
-          src={homePage.planForVisit.images[0].image}
-          class="absolute inset-0 -z-10 size-full object-cover"
-        />
-
-        <div
-          class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-800 via-gray-900/40"
-        >
+        <div class="flex flex-col items-center pb-8">
+          <h2>
+            {
+              (homePage.planForVisit.title && homePage.planForVisit.title) ||
+                "Plan For Your Visit"
+            }
+          </h2>
+          <p class="mt-2 text-lg/8">
+            {
+              (homePage.planForVisit.description &&
+                homePage.planForVisit.description) ||
+                "Find parking and public transit information prior to your visit"
+            }
+          </p>
         </div>
+        <div
+          class="mx-auto relative isolate w-80 lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+        >
+          <img
+            alt={homePage.planForVisit.images[0].altText}
+            src={homePage.planForVisit.images[0].image}
+            class="absolute inset-0 -z-10 size-full object-cover"
+          />
 
-        <h3>
-          <a href={homePage.planForVisit.slug} class="group">
-            <span class="absolute
+          <div
+            class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-800 via-gray-900/40"
+          >
+          </div>
+
+          <h3>
+            <a href={homePage.planForVisit.slug} class="group">
+              <span class="absolute
               inset-0"></span>
-          </a>
-        </h3>
-      </div>
-    </div>
-  </section>
-
-  <!-- Link To Gallery Section -->
-  <section>
-    <DividerGallery />
-    <div
-      class="container p-10 xl:p-20 mx-auto xl:h-screen flex flex-col justify-center"
-    >
-      <div class="flex flex-col items-center pb-8">
-        <h2>
-          {homePage.linkToGallery.title}
-        </h2>
-        <p class="mt-2 text-lg/8">
-          {homePage.linkToGallery.description}
-        </p>
-      </div>
-      <div
-        class="mx-auto relative isolate w-80 lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
-      >
-        <img
-          alt={homePage.linkToGallery.images[0].altText}
-          src={homePage.linkToGallery.images[0].url}
-          class="absolute inset-0 -z-10 size-full object-cover"
-        />
-        <div
-          class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"
-        >
+            </a>
+          </h3>
         </div>
-        <h3>
-          <a href={homePage.linkToGallery.slug} class="group">
-            <span class="absolute inset-0"></span>
-          </a>
-        </h3>
       </div>
-    </div>
-  </section>
-  <DividerFooter />
+    </section>
+    <!-- Divider -->
+    <div class="p-8 md:px-20 md:py-12 w-[80%] mx-auto"><DividerLine /></div>
+    <section>
+      <div
+        class="container p-10 xl:p-20 mx-auto xl:h-screen flex flex-col justify-center"
+      >
+        <div class="flex flex-col items-center pb-8">
+          <h2>
+            {homePage.linkToGallery.title}
+          </h2>
+          <p class="mt-2 text-lg/8">
+            {homePage.linkToGallery.description}
+          </p>
+        </div>
+        <div
+          class="mx-auto relative isolate w-80 lg:w-3xl xl:h-120 overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+        >
+          <img
+            alt={homePage.linkToGallery.images[0].altText}
+            src={homePage.linkToGallery.images[0].url}
+            class="absolute inset-0 -z-10 size-full object-cover"
+          />
+          <div
+            class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"
+          >
+          </div>
+          <h3>
+            <a href={homePage.linkToGallery.slug} class="group">
+              <span class="absolute inset-0"></span>
+            </a>
+          </h3>
+        </div>
+      </div>
+    </section>
+    <DividerFooter />
+  </div>
 </Layout>

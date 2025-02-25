@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import { loadQuery } from "../../sanity/lib/load-query";
 import { galleryPageQuery } from "../../sanity/lib/queries";
+import TitleBottomBorder from "../assets/title-bottom-border.astro";
+import TitleTopBorder from "../assets/title-top-border.astro";
 
 export interface ImageGalleryProps {
   title: string;
@@ -21,15 +23,21 @@ const { data } = await loadQuery<ImageGalleryProps>({
 ---
 
 <Layout>
-  <section class="bg-[url(../assets/background-main.svg)] bg-emerald-900">
+  <section class="bg-[url(../assets/background-main.svg)] bg-emerald-800">
     {
       data ? (
         <div class="container flex flex-col items-center mx-auto p-4 pb-10 lg:px-40 lg:pb-40 md:min-h-screen">
-          <div class="bg-zinc-200/50 p-6 m-6 md:m-12 rounded-xl shadow-2xl w-auto md:w-2xl lg:w-4xl">
+          <div class="bg-zinc-100/30 p-6 m-6 md:mb-10 w-auto md:w-2xl lg:w-4xl">
+            <div class="w-[70%] md:w-[50%] mx-auto">
+              <TitleTopBorder />
+            </div>
             <h1 class="p-4">{data.title}</h1>
             <p class="mb-4 lg:mb-8 text-center">
               {data.description && data.description}
             </p>
+            <div class="w-[70%] md:w-[50%] mx-auto">
+              <TitleBottomBorder />
+            </div>
           </div>
           <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.images.map((item, index) => {
@@ -38,7 +46,7 @@ const { data } = await loadQuery<ImageGalleryProps>({
                   <img
                     src={item.image}
                     alt={item.altText || "Gallery Image"}
-                    class="w-80 h-80 object-cover rounded-lg shadow-md cursor-pointer gallery-images"
+                    class="w-80 h-80 object-cover rounded-lg shadow-md cursor-pointer gallery-images hover:scale-105 hover:ease-in-out transition-transform duration-300 ease-in-out"
                   />
                 </li>
               );

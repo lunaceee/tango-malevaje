@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // Icons for open/close
-import NavigationType from "../components/Navigation.astro"
 
-interface NavigationItemType {
+export interface NavigationItemType {
   title: string;
   linkType: "internal" | "external";
   slug: string;
   url?: string;
 }
+export interface NavigationType {
+  items: NavigationItemType[];
+}
+
 export interface HeaderProps {
   title: string;
   logo?: {
     url: string;
   };
-  navigation: typeof NavigationType
+  navigation: NavigationType
 }
 
 const HeaderComponent = ({ header }: HeaderProps) => {
@@ -60,15 +63,17 @@ const HeaderComponent = ({ header }: HeaderProps) => {
           <ul className="flex flex-col lg:flex-row gap-6 p-6 lg:p-4 lg:gap-20">
             {header.navigation?.items.map((item: NavigationItemType) => (
               <li key={item.title} onClick={closeMenu}>
-                {item.linkType === "external" ? (
-                  <a href={item.slug} target="_blank" className="block">
-                    {item.title}
-                  </a>
-                ) : (
-                  <a href={item.slug === "home" ? "/" : `/${item.slug}`} className="block">
-                    {item.title}
-                  </a>
-                )}
+                {
+                  item.linkType === "external" ? (
+                    <a href={item.slug} target="_blank" className="block">
+                      {item.title}
+                    </a>
+                  ) : (
+                    <a href={item.slug === "home" ? "/" : `/${item.slug}`} className="block hover:underline underline-offset-8">
+                      {item.title}
+                    </a>
+                  )
+                }
               </li>
             ))}
           </ul>
@@ -76,13 +81,15 @@ const HeaderComponent = ({ header }: HeaderProps) => {
       </div>
 
       {/* Overlay (closes menu when clicking outside) */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
-          onClick={closeMenu}
-        ></div>
-      )}
-    </header>
+      {
+        isOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
+            onClick={closeMenu}
+          ></div>
+        )
+      }
+    </header >
   );
 }
 

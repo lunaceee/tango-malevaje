@@ -2,6 +2,8 @@
 import { loadQuery } from "../../sanity/lib/load-query"; // Adjust path based on your project structure
 import { eventsPageQuery } from "../../sanity/lib/queries"; // Adjust path based on your project structure
 import Layout from "../layouts/Layout.astro";
+import TitleBottomBorder from "../assets/title-bottom-border.astro";
+import TitleTopBorder from "../assets/title-top-border.astro";
 
 type EventsProps = {
   title: string;
@@ -28,17 +30,23 @@ export const sortedEvents = eventsData.events.sort((a, b) => {
 ---
 
 <Layout>
-  <section class="bg-[url(../assets/background-main.svg)] bg-slate-700">
+  <section class="bg-[url(../assets/background-main.svg)] bg-teal-800">
     {
       eventsData && (
-        <div class="container py-8 pb-20 flex flex-col items-center mx-auto lg:min-h-screen">
-          <div class="bg-zinc-200/50 p-4 m-4 md:m-12 rounded-xl shadow-2xl w-auto lg:w-4xl">
+        <div class="container pb-20 lg:pb-20 flex flex-col items-center mx-auto lg:min-h-screen">
+          <div class="bg-zinc-100/30 p-4 m-4 md:m-8 md:p-8 w-auto lg:w-4xl">
+            <div class="w-[70%] md:w-[50%] mx-auto">
+              <TitleTopBorder />
+            </div>
             <h1 class="p-4">{eventsData.title && eventsData.title}</h1>
             <p class="mb-4 lg:mb-8 text-center">
               {eventsData.description && eventsData.description}
             </p>
+            <div class="w-[70%] md:w-[50%] mx-auto">
+              <TitleBottomBorder />
+            </div>
           </div>
-          <ul class="flex flex-wrap gap-8 justify-center">
+          <ul class="flex flex-wrap gap-8 justify-center p-8">
             {sortedEvents &&
               sortedEvents.map((event) => {
                 return (

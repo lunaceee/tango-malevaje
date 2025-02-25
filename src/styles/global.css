@@ -13,7 +13,7 @@
 @layer base {
     body {
         font-family: 'Quicksand', sans-serif;
-        @apply text-slate-800 bg-zinc-50 text-lg;
+        @apply text-zinc-900 bg-zinc-50 text-lg;
     }
 }
 
@@ -47,20 +47,6 @@
     }
 }
 
-@keyframes glowing {
-    0% {
-        border-color: transparent;
-    }
-
-    50% {
-        border-color: #881337;
-    }
-
-    /* Blue glow */
-    100% {
-        border-color: transparent;
-    }
-}
 
 @keyframes rotate {
     0% {
