@@ -25,20 +25,20 @@ const { data } = await loadQuery<ImageGalleryProps>({
     {
       data ? (
         <div class="container flex flex-col items-center mx-auto p-4 pb-10 lg:px-40 lg:pb-40 md:min-h-screen">
-          <div class="bg-zinc-200/50 p-8 m-8 md:m-12 rounded-xl shadow-2xl w-auto md:w-2xl lg:w-4xl">
+          <div class="bg-zinc-200/50 p-6 m-6 md:m-12 rounded-xl shadow-2xl w-auto md:w-2xl lg:w-4xl">
             <h1 class="p-4">{data.title}</h1>
             <p class="mb-4 lg:mb-8 text-center">
               {data.description && data.description}
             </p>
           </div>
-          <ul class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.images.map((item, index) => {
               return (
                 <li key={index}>
                   <img
                     src={item.image}
                     alt={item.altText || "Gallery Image"}
-                    class="w-full h-auto rounded-lg shadow-md cursor-pointer gallery-images"
+                    class="w-80 h-80 object-cover rounded-lg shadow-md cursor-pointer gallery-images"
                   />
                 </li>
               );

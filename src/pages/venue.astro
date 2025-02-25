@@ -19,8 +19,8 @@ const { data: venue } = await loadQuery<VenuePageProps>({
 ---
 
 <Layout>
-  <section class="bg-[url(../assets/background-main.svg)] bg-rose-900">
-    <div class="container mx-auto p-4 bg-zinc-100/50">
+  <section class="bg-[url(../assets/background-main.svg)] bg-rose-200">
+    <div class="container mx-auto p-4 bg-rose-100/50">
       <h1 class="p-4 lg:p-16">{venue.title}</h1>
       <div class="max-w-256 mx-auto">
         <PortableText portableText={venue.editor} />
